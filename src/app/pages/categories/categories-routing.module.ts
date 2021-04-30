@@ -14,7 +14,7 @@ const routes: Routes = [
     component: CategoryFormComponent
   },
   {
-    path: 'id/edit',
+    path: ':id/edit',
     component: CategoryFormComponent
   }
 ];
