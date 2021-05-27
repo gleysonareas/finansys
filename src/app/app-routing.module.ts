@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-
 const routes: Routes = [
   {
     path: 'categories',
@@ -13,7 +12,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/entries/entries.module')
     .then(m => m.EntriesModule)
   }
-
 ];
 
 @NgModule({

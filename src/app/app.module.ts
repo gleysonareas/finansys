@@ -15,7 +15,7 @@ import { InMemoryDatabase } from './in-memory-database';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    InMemoryWebApiModule.forRoot(InMemoryDatabase)
+    //InMemoryWebApiModule.forRoot(InMemoryDatabase)
   ],
   providers: [],
   bootstrap: [AppComponent]
