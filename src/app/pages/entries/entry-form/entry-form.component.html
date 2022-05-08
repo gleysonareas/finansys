@@ -1,0 +1,128 @@
+<fs-bread-crumb [items]="[{text: 'Lançamentos', link: '/entries'}, {text: pageTitle}]"></fs-bread-crumb>
+
+<fs-page-header [page-title]="pageTitle" button-text="<< Voltar" button-link="/entries" button-class="btn-light"></fs-page-header>
+
+<form [formGroup]="resourceForm" (submit)="submitForm()">
+    <div class="card">
+        <div class="card-header">
+            Informações sobre o lançamento
+        </div>
+        <div class="card-body">
+            <div class="form-row">
+
+                <!-- Tipo -->
+                <div class="form-group col-md-2">
+                    <label for="type">Tipo</label>
+                    <select id="type" class="form-control" formControlName="type">
+                            <option *ngFor="let option of typeOptions" [value]="option.value">{{option.text}}</option>
+                    </select>
+                    <fs-form-field-error [form-control]="resourceForm.get('type')"></fs-form-field-error>
+
+                    <!-- <div class="text-danger" *ngIf="resourceForm.get('type').invalid && resourceForm.get('type').touched">
+                        <div *ngIf="resourceForm.get('name').errors.required">dados obrigatórios</div>
+                </div> -->
+                </div>
+
+                <!-- Nome -->
+                <div class="form-group col-md-5">
+                    <label for="name">Lançamento</label>
+                    <input type="text" class="form-control" id="name" formControlName="name" placeholder="Lançamento">
+                    <fs-form-field-error [form-control]="resourceForm.get('name')"></fs-form-field-error>
+
+                    <!-- <div class="text-danger" *ngIf="resourceForm.get('name').invalid && resourceForm.get('name').touched">
+                        <div *ngIf="resourceForm.get('name').errors.required">dados obrigatórios</div>
+                        <div *ngIf="resourceForm.get('name').errors.minlength">deve ter no minimo 2 caracteres</div>
+                    </div> -->
+                    <!-- <pre>{{resourceForm.get('name').errors | json}}</pre> -->
+                </div>
+
+                <!-- Valor -->
+                <div class="form-group col-md-3">
+                    <label for="amount">Valor</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="imput-group-text">R$</div>
+                        </div>
+                        <input [imask]="imaskConfig" type="text" class="form-control text-right" id="amount" formControlName="amount">
+                    </div>
+                    <fs-form-field-error [form-control]="resourceForm.get('amount')"></fs-form-field-error>
+
+                    <!-- <div class="text-danger" *ngIf="resourceForm.get('amount').invalid && resourceForm.get('amount').touched">
+                        <div *ngIf="resourceForm.get('amount').errors.required">dados obrigatórios</div>
+                    </div> -->
+                </div>
+
+                <!-- Data -->
+                <div class="form-group col-md-2">
+                    <label for="date">Data</label>
+                    <!-- <p-calendar id="date" formControlName="date" inputStyleClass="form-control" dataType="string" dateFormat="dd/mm/yy" [locale]="ptBR" [showButtonBar]="true"> -->
+
+                    <p-calendar id="date" formControlName="date" inputStyleClass="form-control" dataType="string" dateFormat="dd/mm/yy">
+                    </p-calendar>
+                    <fs-form-field-error [form-control]="resourceForm.get('date')"></fs-form-field-error>
+
+                    <!-- <div class="text-danger" *ngIf="resourceForm.get('date').invalid && resourceForm.get('date').touched">
+                        <div *ngIf="resourceForm.get('date').errors.required">dados obrigatórios</div>
+                    </div> -->
+                </div>
+
+            </div>
+
+            <div class="form-row">
+
+                <!-- Pago -->
+                <div class="form-group col-md-2">
+                    <label for="paid">Pago</label>
+                    <br>
+                    <div class="btn-group">
+                        <label (click)="resourceForm.get('paid').setValue('true')" [class.active]="resourceForm.get('paid').value == true" class="btn btn-outline-info">
+                            Pago
+                       </label>
+                    </div>
+                    <div class="btn-group">
+                        <label (click)="resourceForm.get('paid').setValue('false')" [class.active]="resourceForm.get('paid').value == false" class="btn btn-outline-info">
+                            Pendente
+                       </label>
+                    </div>
+                    <fs-form-field-error [form-control]="resourceForm.get('paid')"></fs-form-field-error>
+
+                    <!-- <pre>{{resourceForm.value | json}}</pre> -->
+                    <!-- <div class="text-danger" *ngIf="resourceForm.get('paid').invalid && resourceForm.get('paid').touched">
+                        <div *ngIf="resourceForm.get('paid').errors.required">dados obrigatórios</div>
+                    </div> -->
+                </div>
+
+                <!-- Categoria -->
+                <div class="form-group col-md-3">
+                    <label for="categoryId">Categoria</label>
+                    <select id="categoryId" class="form-control" formControlName="categoryId">
+                            <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+                    </select>
+                    <fs-form-field-error [form-control]="resourceForm.get('categoryId')"></fs-form-field-error>
+
+                    <!-- <div class="text-danger" *ngIf="resourceForm.get('categoryId').invalid && resourceForm.get('categoryId').touched">
+                        <div *ngIf="resourceForm.get('categoryId').errors.required">dados obrigatórios</div>
+                    </div> -->
+                </div>
+
+                <!-- Descrição -->
+                <div class="form-group col-md-7">
+                    <label for="description">Descrição</label>
+                    <input type="text" class="form-control" id="description" formControlName="description" placeholder="Descrição">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <fs-server-error-message [server-error-messages]="serverErrorMessages"></fs-server-error-message>
+    <!-- <div class="alert alert-danger mt-4" *ngIf="serverErrorMessages">
+        <strong>Erro no servidor: </strong>
+        <ul>
+            <li *ngFor="let error of serverErrorMessages">{{error}}</li>
+        </ul>
+    </div> -->
+
+    <button [disabled]="submittingForm || resourceForm.invalid" type="submit" class="btn btn-primary btn-lg float-right mt-3">
+      Salvar
+    </button>
+</form>

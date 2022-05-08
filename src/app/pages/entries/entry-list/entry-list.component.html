@@ -1,0 +1,37 @@
+<fs-bread-crumb [items]="[{text: 'Lançamentos'}]"></fs-bread-crumb>
+
+<fs-page-header page-title="Lançamentos" button-text="+ Novo Lançamento" button-link="new" button-class="btn-success"></fs-page-header>
+
+<table class="table table-hover">
+    <thead>
+        <tr class="bg-primary text-light">
+            <th>Lançamento</th>
+            <th>Categoria</th>
+            <th class="text-right">Valor R$</th>
+            <th class="text-center">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let entry of resources">
+            <td>
+                <strong>{{entry.name}}</strong><br>
+                <small class="text-success">{{entry.date}}</small><br>
+                <small ng-if="entry.description">{{entry.description}}</small>
+            </td>
+            <td>
+                {{entry.category.name}}
+            </td>
+            <td class="text-right">
+                <strong [ngClass]="entry.type == 'revenue' ? 'text-success' : 'text-danger'">
+                    {{entry.amount}}
+                </strong>
+                <br>
+                <span class="badge badge-light">{{entry.paidText}}</span>
+            </td>
+            <td class="text-center">
+                <a [routerLink]="[entry.id, 'edit']" class="btn btn-outline-info btn-sm mr-2">Editar</a>
+                <a (click)="deleteResource(entry)" class="btn btn-outline-danger btn-sm">Excluir</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
