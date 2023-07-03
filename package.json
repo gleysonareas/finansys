@@ -10,7 +10,6 @@
         "e2e": "ng e2e",
         "deploy:ghdocs": "ng build --prod --output-path docs --base-href /finansys/"
     },
-
     "private": true,
     "dependencies": {
         "@angular/animations": "~11.0.0",

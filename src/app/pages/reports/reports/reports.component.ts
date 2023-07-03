@@ -90,7 +90,7 @@ export class ReportsComponent implements OnInit {
     let chartData: { categoryName: string | undefined; totalAmount: number; }[] = [];
     this.categories.forEach(category => {
       let filteredEntries = this.entries.filter(
-        entry => ((entry.categoryId == category.id) && (entry.type == 'revenue')),
+        entry => ((entry.categoryId == category.id) && (entry.type == entryType)),
       );
       if (filteredEntries.length > 0) {
         let totalAmount = filteredEntries.reduce(
@@ -103,11 +103,14 @@ export class ReportsComponent implements OnInit {
         });
       }
     });
+
     return {
       labels: chartData.map(item => item.categoryName),
-      datasets: title,
-      backgroundColor: color,
-      data: chartData.map(item => item.totalAmount),
+      datasets: [{
+        label: title,
+        backgroundColor: color,
+        data: chartData.map(item => item.totalAmount)
+      }],
     }
   }
 
